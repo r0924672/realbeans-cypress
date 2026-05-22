@@ -101,17 +101,21 @@ describe("RealBeans Shopify Store - Chapter 2 Cypress Tests", () => {
     cy.get("img").should("have.attr", "src").and("include", "Blend")
   })
 
-  it("checks that the About page includes the required history paragraph", () => {
-    cy.visit(`${storeUrl}pages/about`)
+it("checks that the About page includes the required history paragraph", () => {
+  cy.visit(`${storeUrl}pages/about`)
+  unlockIfPasswordPage()
 
-    cy.get('input[type="password"]:visible').type(password)
-    cy.get('button[type="submit"]:visible').click()
-
-    cy.contains("About").click({ force: true })
-
-    cy.get("body", { timeout: 10000 }).should(
-      "contain",
-      "From a small Antwerp grocery to a European coffee staple"
-    )
+  cy.get("body", { timeout: 10000 }).then(($body) => {
+    if (!$body.text().includes("From a small Antwerp grocery to a European coffee staple")) {
+      cy.visit(storeUrl)
+      unlockIfPasswordPage()
+      cy.contains("About").click({ force: true })
+    }
   })
+
+  cy.get("body", { timeout: 10000 }).should(
+    "contain",
+    "From a small Antwerp grocery to a European coffee staple"
+  )
+})
 })
