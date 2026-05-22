@@ -84,7 +84,7 @@ describe("RealBeans Shopify Store - Chapter 2 Cypress Tests", () => {
     cy.get("body").should("contain", "Roasted coffee beans")
     cy.get("body").should("contain", "Our best and sustainable real roasted beans.")
     cy.get("body").should("contain", "40")
-    cy.get("img").should("have.attr", "src").and("include", "Roasted")
+    cy.get('img[src*="RealBeansRoastedBag"]').should("exist")
   })
 
   it("checks the Blended coffee product detail page description, price, and image name", () => {
@@ -98,7 +98,7 @@ describe("RealBeans Shopify Store - Chapter 2 Cypress Tests", () => {
     cy.get("body").should("contain", "Blended coffee")
     cy.get("body").should("contain", "RealBeans coffee, ready to brew.")
     cy.get("body").should("contain", "55")
-    cy.get("img").should("have.attr", "src").and("include", "Blend")
+    cy.get('img[src*="RealBeansBlendBag"]').should("exist")
   })
 
 it("checks that the About page includes the required history paragraph", () => {
